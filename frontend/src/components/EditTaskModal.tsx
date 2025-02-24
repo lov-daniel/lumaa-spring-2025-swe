@@ -1,22 +1,34 @@
+// Package imports
 import React, { useState } from "react";
+
+// Type imports
+import { Task } from "../types/task";
 
 interface EditTaskModalProps {
     isOpen: boolean;
     onClose: () => void;
     onUpdateTask: (title: string, description: string) => void;
-    task: { title: string; description: string; completed: boolean };
+    task: Task;
 }
 
 function EditTaskModal({ isOpen, onClose, onUpdateTask, task }: EditTaskModalProps) {
-    const [title, setTitle] = useState(task.title);
-    const [description, setDescription] = useState(task.description);
+    const [title, setTitle] = useState<string>(task.title);
+    const [description, setDescription] = useState<string>(task.description)
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (title.trim() && description.trim()) {
             onUpdateTask(title, description);
-            onClose(); // Close the modal after update
+            onClose();
         }
+    };
+
+    const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.target.value);
+    };
+
+    const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setDescription(e.target.value);
     };
 
     return (
@@ -29,7 +41,7 @@ function EditTaskModal({ isOpen, onClose, onUpdateTask, task }: EditTaskModalPro
                         type="text"
                         className="input input-bordered w-full"
                         value={title}
-                        onChange={(e) => setTitle(e.target.value)}
+                        onChange={handleTitleChange}
                         required
                     />
 
@@ -37,7 +49,7 @@ function EditTaskModal({ isOpen, onClose, onUpdateTask, task }: EditTaskModalPro
                     <textarea
                         className="textarea textarea-bordered w-full"
                         value={description}
-                        onChange={(e) => setDescription(e.target.value)}
+                        onChange={handleDescriptionChange}
                         required
                     />
 

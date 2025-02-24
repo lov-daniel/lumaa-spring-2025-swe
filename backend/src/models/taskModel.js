@@ -1,6 +1,6 @@
 import pool from "../config/db.js";
 
-async function  createTask(title, description, isCompleted, userId) {
+async function createTask(title, description, isCompleted, userId) {
     try {
         const result = await pool.query(
             "INSERT INTO tasks (title, description, isComplete, userid) VALUES ($1, $2, $3, $4) RETURNING *",

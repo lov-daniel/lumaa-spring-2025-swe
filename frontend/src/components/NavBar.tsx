@@ -1,19 +1,17 @@
+// Package imports
 import { Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 function NavBar() {
-    const auth = useAuth();
-    const navigate = useNavigate(); // Initialize navigate
+    const { isAuthenticated, logout } = useAuth();
+    const navigate = useNavigate();
 
     const handleClick = () => {
-        console.log("Button clicked, isAuthenticated: ", auth.isAuthenticated);
-
-        if (auth.isAuthenticated) {
-            auth.logout();
-            // Ensuring the logout has updated before navigating
+        if (isAuthenticated) {
+            logout();
             setTimeout(() => {
                 navigate("/");
-            }, 100); // Wait for logout to be effective
+            }, 100);
         } else {
             navigate("/login");
         }
@@ -27,10 +25,10 @@ function NavBar() {
                 </div>
                 <div className="navbar-end">
                     <a
-                        className={`${auth.isAuthenticated ? 'btn btn-md btn-error' : 'btn btn-md btn-success'}`}
+                        className={`${isAuthenticated ? 'btn btn-md btn-error' : 'btn btn-md btn-success'}`}
                         onClick={handleClick}
                     >
-                        {auth.isAuthenticated ? 'Log out' : "Login/Registration"}
+                        {isAuthenticated ? 'Log out' : "Login/Registration"}
                     </a>
                 </div>
             </div>
