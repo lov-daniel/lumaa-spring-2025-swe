@@ -1,0 +1,45 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+    themes: light --default, dark --prefersdark, cupcake;
+}
+
+.sticky-note-card {
+    background-color: #ffeb3b; /* Yellow sticky note background */
+    border-radius: 5px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1); /* Slight shadow for a lifted effect */
+    padding: 16px;
+    margin: 8px;
+    width: 180px; /* Adjust width */
+    height: 160px; /* Adjust height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    font-family: 'Arial', sans-serif;
+    cursor: grab;
+  }
+  
+  .sticky-note-content {
+    font-size: 16px;
+    text-align: center;
+    color: #000000;
+  }
+  
+  .sticky-note-card:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .sticky-note-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    background-color: #ffeb3b;
+    transform: rotate(45deg);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
